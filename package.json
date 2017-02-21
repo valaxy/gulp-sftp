@@ -6,7 +6,7 @@
   "repository": "gtg092x/gulp-sftp",
   "homepage": "https://github.com/gtg092x/gulp-sftp/",
   "bugs": {
-    "url" : "https://github.com/gtg092x/gulp-sftp/issues"
+    "url": "https://github.com/gtg092x/gulp-sftp/issues"
   },
   "author": {
     "name": "Matthew Drake",
@@ -45,8 +45,10 @@
     "gulp-util": "~3.0.0",
     "object-assign": "~0.3.1",
     "parents": "~1.0.0",
-    "ssh2": "~0.3.3",
+    "ssh2": "^0.5.4",
     "through2": "~0.4.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gulp": "^3.9.1"
+  }
 }

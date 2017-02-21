@@ -4,11 +4,12 @@ var fs = require('fs');
 var gutil = require('gulp-util');
 var util = require('util');
 var through = require('through2');
-var Connection = require('ssh2');
+var Connection = require('ssh2').Client;
 var async = require('async');
 var parents = require('parents');
 var Stream = require('stream');
 var assign = require('object-assign');
+var ssh2s = require("ssh2-streams");
 
 var normalizePath = function(path){
     return path.replace(/\\/g, '/');
@@ -169,14 +170,20 @@ module.exports = function (options) {
             
         });
 
-
         /*
          * connection options, may be a key
          */
         var connection_options = {
             host : options.host,
             port : options.port||22,
-            username : options.username
+            username : options.username,
+            algorithms: {
+                kex: ssh2s.constants.ALGORITHMS.SUPPORTED_KEX,
+                cipher: ssh2s.constants.ALGORITHMS.SUPPORTED_CIPHER,
+                serverHostKey: [ 'ssh-rsa', 'ssh-dss' ],
+                hmac: ssh2s.constants.ALGORITHMS.SUPPORTED_HMAC,
+                compress: ssh2s.constants.ALGORITHMS.SUPPORTED_COMPRESS
+            }
         };
 
         if(options.password){
